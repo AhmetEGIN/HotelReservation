@@ -10,6 +10,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import java.io.Serializable;
+import java.util.List;
+
 /**
  * Veri tabanında hotels isimli tabloya denk gelen Entity class'ıdır.
  */
@@ -20,7 +23,7 @@ import lombok.experimental.SuperBuilder;
 @Entity
 @Table(name = "hotels")
 @PrimaryKeyJoinColumn(name = "user_id", referencedColumnName = "id")
-public class Hotel extends User {
+public class Hotel extends User implements Serializable {
 
 
     @Column(name = "name")
@@ -43,5 +46,9 @@ public class Hotel extends User {
     @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @JoinColumn(name = "city_id")
     private City city;
+
+
+    @OneToMany(mappedBy = "hotel", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private List<Room> rooms;
 
 }

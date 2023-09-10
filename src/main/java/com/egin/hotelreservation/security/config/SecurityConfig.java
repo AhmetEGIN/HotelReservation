@@ -4,8 +4,7 @@ import com.egin.hotelreservation.security.filter.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
-import org.springframework.security.authentication.AuthenticationProvider;
+ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -40,16 +39,38 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/v1/auth/**").permitAll()
+                        .requestMatchers(POST, "/api/v1/*/login").permitAll()
+
+
                         .requestMatchers(POST, "/api/v1/admins").permitAll()
+
+
                         .requestMatchers(POST, "/api/v1/customers").permitAll()
                         .requestMatchers(GET, "/api/v1/customers/all").permitAll()
-                        .requestMatchers(POST, "/api/v1/hotels").permitAll()
                         .requestMatchers(DELETE, "/api/v1/customers/soft").permitAll()
                         .requestMatchers(GET, "/api/v1/customers/{id}").permitAll()
-                        .requestMatchers(POST, "/api/v1/*/login").permitAll()
+
+
+                        .requestMatchers(POST, "/api/v1/hotels").permitAll()
+//                        .requestMatchers(DELETE, "/api/v1/hotels").permitAll()
+                        .requestMatchers(GET, "/api/v1/hotels").permitAll()
+                        .requestMatchers(GET, "/api/v1/hotels/{id}").permitAll()
+                        .requestMatchers(POST, "/api/v1/hotels/login").permitAll()
+
+
                         .requestMatchers(GET, "/api/v1/cities").permitAll()
                         .requestMatchers(GET, "/api/v1/cities/country-code").permitAll()
                         .requestMatchers(GET, "/api/v1/cities/{id}").permitAll()
+
+
+                        .requestMatchers(GET, "/api/v1/rooms/all").permitAll()
+                        .requestMatchers(GET, "/api/v1/rooms/{id}").permitAll()
+                        .requestMatchers(GET, "/api/v1/rooms").permitAll()
+
+
+                        .requestMatchers(GET, "/api/v1/room-bookings/price").permitAll()
+                        .requestMatchers(POST, "/api/v1/room-bookings").permitAll()
+
                         .requestMatchers(
                                 "/v2/api-docs",
                                 "/v3/api-docs",

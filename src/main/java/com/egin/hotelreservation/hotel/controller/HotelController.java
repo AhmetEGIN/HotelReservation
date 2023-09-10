@@ -45,7 +45,7 @@ public class HotelController {
 
 
     @PostMapping("/login")
-    public BaseResponse<TokenResponse> login(@RequestBody @Valid LoginRequest loginRequest) {
+    public BaseResponse<TokenResponse> login(@RequestBody LoginRequest loginRequest) {
         TokenResponse response = this.hotelService.loginHotel(loginRequest);
         return BaseResponse.successOf(response);
     }
@@ -96,7 +96,7 @@ public class HotelController {
 
     @DeleteMapping("/soft")
     @PreAuthorize("hasAnyAuthority('admin:delete', 'hotel:delete')")
-    public BaseResponse softDelete(boolean isDeleted) {
+    public BaseResponse softDelete(@RequestParam boolean isDeleted) {
         this.hotelService.softDelete(isDeleted);
 
         return BaseResponse.NO_CONTENT;
@@ -117,7 +117,7 @@ public class HotelController {
     public BaseResponse<List<GetAllPageableSortedFilteredByCityResponse>> getAllPageableAndSortedAndFilteredByCity(
             @RequestParam(value = "pageNo", required = false, defaultValue = "1") int pageNo,
             @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize,
-            @RequestParam(value = "sortKey", required = false, defaultValue = "") String sortKey,
+            @RequestParam(value = "sortKey", required = false, defaultValue = "star") String sortKey,
             @RequestParam(value = "sortingDirection", required = false, defaultValue = "ASC") String sortingDirection,
             @RequestParam(value = "cityId", required = false, defaultValue = "") String cityId
     ) {

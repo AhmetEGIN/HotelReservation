@@ -30,6 +30,7 @@ public class HotelMapper {
         return Hotel
                 .builder()
                 .email(request.getEmail())
+                .password(request.getPassword())
                 .name(request.getName())
                 .star(request.getStar())
                 .hotelType(request.getHotelType())

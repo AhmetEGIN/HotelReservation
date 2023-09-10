@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 
@@ -22,7 +23,7 @@ import java.util.List;
 @Entity
 @Table(name = "users")
 @Inheritance(strategy = InheritanceType.JOINED)
-public class User extends BaseEntity implements UserDetails {
+public class User extends BaseEntity implements UserDetails , Serializable{
 
     @Id
     @GeneratedValue(generator = "UUID")
@@ -41,7 +42,7 @@ public class User extends BaseEntity implements UserDetails {
     @Column(name = "role")
     private Role role;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<Token> tokens;
 
     @Override

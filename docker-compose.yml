@@ -16,6 +16,8 @@ services:
       SPRING_DATASOURCE_PASSWORD: test
     depends_on:
       - postgredb
+      - rabbitmq
+      - redis
     networks:
       - spring-app-network
 
@@ -50,6 +52,21 @@ services:
     networks:
       - spring-app-network
 
+  rabbitmq:
+    image: rabbitmq:3.12-management
+    container_name: rabbitMq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - spring-app-network
+
+  redis:
+    image: redis:7.0.11
+    ports:
+      - "6379:6379"
+    networks:
+      - spring-app-network
 
 volumes:
   db-data:

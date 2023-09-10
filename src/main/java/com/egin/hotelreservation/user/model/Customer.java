@@ -1,16 +1,16 @@
 package com.egin.hotelreservation.user.model;
 
+import com.egin.hotelreservation.roomBooking.model.RoomBooking;
 import com.egin.hotelreservation.security.model.user.User;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.PrimaryKeyJoinColumn;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * Customer nesnesinin veri tabanına karşılık gelen Entity sınıfıdır.
@@ -22,7 +22,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "customers")
 @PrimaryKeyJoinColumn(name = "user_id", referencedColumnName = "id")
-public class Customer extends User {
+public class Customer extends User implements Serializable {
 
     @Column(name = "first_name")
     private String firstName;
@@ -36,5 +36,8 @@ public class Customer extends User {
     @Column(name = "birth_date")
     private LocalDateTime birthDate;
 
+
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.PERSIST)
+    private List<RoomBooking> roomBookings;
 
 }

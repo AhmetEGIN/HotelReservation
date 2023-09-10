@@ -8,6 +8,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
+import java.io.Serializable;
+
 /**
  * Veri tabanında Cities tablosuna karşılık gelen Entity class'ıdır.
  */
@@ -17,7 +19,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Builder
 @Entity
 @Table(name = "cities")
-public class City extends BaseEntity {
+public class City extends BaseEntity implements Serializable {
 
     @Id
     @GeneratedValue(generator = "UUID")

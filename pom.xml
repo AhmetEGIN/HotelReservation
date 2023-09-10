@@ -16,6 +16,7 @@
 	<properties>
 		<java.version>17</java.version>
 		<aspect.version>3.0.6</aspect.version>
+		<rabbitmq.version>3.1.1</rabbitmq.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -92,6 +93,31 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-aop</artifactId>
 			<version>${aspect.version}</version>
+		</dependency>
+
+
+		<!--		RabbitMQ            -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-amqp</artifactId>
+			<version>${rabbitmq.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.amqp</groupId>
+			<artifactId>spring-rabbit-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+
+		<!--  Redis	-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.lettuce</groupId>
+			<artifactId>lettuce-core</artifactId>
+			<version>6.2.4.RELEASE</version>
 		</dependency>
 
 

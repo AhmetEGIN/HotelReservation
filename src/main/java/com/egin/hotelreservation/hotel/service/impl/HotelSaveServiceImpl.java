@@ -54,23 +54,18 @@ public class HotelSaveServiceImpl implements HotelSaveService {
         final City city = this.cityService.getCityById(request.getCityId());
         System.out.println(city.getName());
         final Hotel hotel = HotelMapper.hotelRegisterRequestToHotel(request, city);
-        System.out.println("********");
-        System.out.println(hotel.getName());
         hotel.setPassword(passwordEncoder.encode(request.getPassword()));
         hotel.setRole(Role.HOTEL);
         hotel.setActive(true);
         hotel.setDeleted(false);
 
         final TokenResponse tokenResponse = this.authService.generateToken(hotel);
-        System.out.println(tokenResponse.getAccessToken());
         final HotelRegisterResponse response = HotelMapper
                 .toHotelRegisterResponse(
                         hotel,
                         city,
                         tokenResponse
                 );
-        System.out.println("response:  ");
-        System.out.println(request.getEmail());
         this.hotelRepository.save(hotel);
         return response;
     }

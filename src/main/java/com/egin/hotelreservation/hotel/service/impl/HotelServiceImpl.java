@@ -66,7 +66,7 @@ public class HotelServiceImpl implements HotelService {
      * @return
      */
     @Override
-    public TokenResponse loginHotel(final LoginRequest loginRequest) {
+    public TokenResponse loginHotel(LoginRequest loginRequest) {
 
         return this.authService.authenticate(loginRequest);
     }
@@ -119,9 +119,9 @@ public class HotelServiceImpl implements HotelService {
      */
     @Override
     public Hotel getHotelByEmail(String email) {
-//        return this.hotelRepository.findHotelByEmail(email)
-//                .orElseThrow(HotelNotFoundException::new);
-        return null;
+        return this.hotelRepository.findByEmail(email)
+                .orElseThrow(HotelNotFoundException::new);
+//        return null;
     }
 
 
@@ -144,8 +144,9 @@ public class HotelServiceImpl implements HotelService {
      */
     @Override
     public void softDelete(boolean isDeleted) {
-        getUser().setDeleted(isDeleted);
 
+        getUser().setDeleted(isDeleted);
+        this.hotelRepository.save(getUser());
     }
 
     /**

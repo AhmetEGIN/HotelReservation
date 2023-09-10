@@ -23,4 +23,5 @@ public interface CustomerService {
     Customer getCustomerById(String id);
     void changeActiveState(boolean status);
 
+    Customer getCustomerByEmail(String username);
 }

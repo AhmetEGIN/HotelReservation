@@ -10,6 +10,7 @@ import com.egin.hotelreservation.user.model.Customer;
 import com.egin.hotelreservation.user.repository.CustomerRepository;
 import com.egin.hotelreservation.user.service.CustomerService;
 import com.egin.hotelreservation.user.service.rules.CustomerBusinessRules;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -115,6 +116,7 @@ public class CustomerServiceImpl implements CustomerService {
      * @return
      */
     @Override
+    @Cacheable(value = "customers")
     public List<Customer> getAllCustomers() {
 
         return this.customerRepository.findAll();
@@ -145,6 +147,13 @@ public class CustomerServiceImpl implements CustomerService {
         getUser().setActive(status);
         this.customerRepository.save(getUser());
 
+    }
+
+    @Override
+    public Customer getCustomerByEmail(String username) {
+
+        return this.customerRepository.findByEmail(username)
+                .orElseThrow(CustomerNotFoundException::new);
     }
 
 }
